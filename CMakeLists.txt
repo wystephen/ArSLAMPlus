@@ -16,9 +16,15 @@ find_package(OpenCV REQUIRED)
 find_package(PCL  REQUIRED)
 add_definitions(${PCL_DEFINITIONS})
 
-SET(G2O_ROOT "/usr/local/include/g2o")
-FIND_PACKAGE(G2O REQUIRED)
-FIND_PACKAGE( CSparse REQUIRED)
+# 添加g2o的依赖
+# 因为g2o不是常用库，要添加它的findg2o.cmake文件
+LIST(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules)
+
+SET( G2O_ROOT /usr/local/include/g2o )
+FIND_PACKAGE( G2O )
+# CSparse
+FIND_PACKAGE( CSparse )
+INCLUDE_DIRECTORIES( ${G2O_INCLUDE_DIR} ${CSPARSE_INCLUDE_DIR} )
 
 include_directories(
         ${EIGEN3_INCLUDE_DIR}
@@ -30,9 +36,10 @@ include_directories(
         /usr/local/include
         ${CSPARSE_INCLUDE_DIR}
         #     ${PROJECT_SOURCE_DIR}/thirdparty/g2o
-        ${PROJECT_SOURCE_DIR}/thirdparty/g2o
-        # /usr/include/suitesparse
-
+#        ${PROJECT_SOURCE_DIR}/thirdparty/g2o
+#         /usr/include/suitesparse
+        ${G2O_INCLUDE_DIR}
+        ${CSPARSE_INCLUDE_DIR}
 )
 
 
@@ -58,5 +65,5 @@ SET(G2O_LIBS g2o_cli g2o_ext_freeglut_minimal g2o_simulator
 
 # test executable application.
 add_executable(g2oTEST test/g2o_test.cpp)
-target_link_libraries(g2oTest ${G2O_LIBS} )
+target_link_libraries(g2oTEST ${G2O_LIBS} ${CSPARSE_LIBRARY})
 
