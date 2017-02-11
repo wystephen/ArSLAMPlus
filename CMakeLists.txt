@@ -12,8 +12,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -O3   -lopencv_aruco")
 
 ##Add Libraries
 find_package(Eigen3 REQUIRED)
-find_package(OpenCV REQUIRED)
-find_package(PCL  REQUIRED)
+find_package(OpenCV 3.1 REQUIRED)
+find_package(PCL 1.8  REQUIRED)
 add_definitions(${PCL_DEFINITIONS})
 
 # 添加g2o的依赖
@@ -48,7 +48,7 @@ link_directories(
         /usr/lib
         ${PCL_LIBRARY_DIRS}
         #        ~/Code/g2o/libCMakeLists.txt:60
-        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib
+#        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib
 )
 SET(G2O_LIBS g2o_cli g2o_ext_freeglut_minimal g2o_simulator
         g2o_solver_slam2d_linear g2o_types_icp g2o_types_slam2d
