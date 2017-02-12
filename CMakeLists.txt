@@ -64,6 +64,10 @@ SET(G2O_LIBS g2o_cli g2o_ext_freeglut_minimal g2o_simulator
 
 
 # test executable application.
-add_executable(g2oTEST test/g2o_test.cpp)
+add_executable(g2oTEST test/g2o_test.cpp )
 target_link_libraries(g2oTEST ${G2O_LIBS} ${CSPARSE_LIBRARY})
+
+
+add_executable(capTEST test/cap_test.cpp)
+target_link_libraries(capTEST ${OpenCV_LIBS})
 
